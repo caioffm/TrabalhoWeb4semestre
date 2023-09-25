@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Christyan Machado">
+
+    <title>UMFG</title>
+    <link href="./src/fonts/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="./src/css/admin.min.css" rel="stylesheet">
+    <link href="./src/css/angular-confirm.min.css" rel="stylesheet">
+    <link href="./src/css/app.css" rel="stylesheet">
+
+    <script src="./src/lib/jquery.min.js"></script>
+    <script src="./src/lib/bootstrap.min.js"></script>
+    <script src="./src/lib/jquery.easing.min.js"></script>
+
+
+    <script src="./src/lib/angularjs.min.js"></script>
+    <script src="./src/lib/angular-ui-router.min.js"></script>
+    <script src="./src/js/angular-confirm.min.js"></script>
+    <script src="./src/js/app.js"></script>
+</head>
+
+</head>
+
+<body>
+
+    <body ng-app="myApp" ng-controller="ctrlGlobal">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <h3>Cadastrar Usuário</h3>
+                    <form id="CadastrarConta" method="POST" action="./api/users.php">
+                        <div class="form-group">
+                            <label for="name">Nome:</label>
+                            <input type="text" name="name" class="form-control" id="name" ng-model="novoUsuario.name" required>
+                        
+                            <label for="email">E-mail:</label>
+                            <input type="email" name="email"class="form-control" id="email" ng-model="novoUsuario.email" required>
+                        
+                            <label for="password">Senha:</label>
+                            <input type="password" name="password" class="form-control" id="password" ng-model="novoUsuario.password"
+                                required>
+                        </div>
+                        <input type="submit" value="Cadastrar" class="btn btn-primary btn-user btn-block">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+    $(document).ready(function () {
+    $("#CadastrarConta").submit(function (e) {
+        e.preventDefault(); 
+
+        var name = $("#name").val().trim();
+        var email = $("#email").val().trim();
+        var password = $("#password").val().trim();
+
+        if (name === "" || email === "" || password === "") {
+            alert("Nome, Email e Senha são campos obrigatórios.");
+            return;
+        }
+
+        $.post("./api/users.php", $(this).serialize(), function (data) {
+            try {
+                console.log("ATENÇÂO:", data);
+                if (data.status === 200) {
+                    $(".msg").html('<div class="alert alert-success">Sua Conta Foi Cadastrada!</div>');
+                    setTimeout(function () {
+                        window.location.href = "login.html"; 
+                    }, 1000); 
+                } else {
+                    $(".msg").html('<div class="alert alert-danger">' + data.msg + '</div>');
+                }
+            } catch (e) {
+                console.error("Error parsing server response:", e);
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error("Request failed:", textStatus, errorThrown);
+        });
+    });
+});
+    </script>
+
+
+</html>

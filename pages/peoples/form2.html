@@ -1,0 +1,21 @@
+<form action="" method="post">
+    <div class="msg"></div>
+    <label>Nome:</label>
+    <input class="form-control" type="text" ng-model="item.name">
+    <label>Email:</label>
+    <input class="form-control" type="text" ng-model="item.email">
+    <label>Documento:</label>
+    <input class="form-control" type="text" ng-model="item.doc">
+    <label>Tipo (Fisica ou Juridica):</label>
+    <input class="form-control" type="text" ng-model="item.type" placeholder="F ou J">
+    <label>CEP:</label>
+    <input class="form-control" type="text" ng-model="item.cep" ng-change="CEPSearch()">  
+    <label>Endereço:</label>
+    <input class="form-control" type="text" ng-model="item.address">
+    <label>Cidade:</label>
+    <input class="form-control" type="text" ng-model="item.city">
+    <label>Estado (UF):</label>
+    <input class="form-control" type="text" ng-model="item.state">
+    <!--<label>Status:</label>
+    <input class="form-control" type="text" ng-model="item.status">-->
+</form>
